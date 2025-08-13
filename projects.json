@@ -3,18 +3,26 @@
     "title": "Calculator App",
     "description": "A simple calculator using Python and Tkinter.",
     "tech": ["Python", "Tkinter"],
-    "link": "https://github.com/yourhandle/calculator"
+    "link": "https://fake-server-nu.vercel.app/"
   },
   {
     "title": "Portfolio Website",
     "description": "My personal website showcasing projects and skills.",
     "tech": ["Flask", "Bootstrap", "HTML", "CSS"],
-    "link": "https://github.com/yourhandle/portfolio"
+    "link": "https://reversi-drab.vercel.app/"
   },
   {
     "title": "Blog Engine",
     "description": "A small blog engine using Flask and SQLite.",
     "tech": ["Python", "Flask", "SQLite"],
-    "link": "https://github.com/yourhandle/blog"
+    "link": "https://get-to100-game-2023.vercel.app/"
   }
+    ,
+  {
+    "title": "Blog Engine",
+    "description": "A small blog engine using Flask and SQLite.",
+    "tech": ["Python", "Flask", "SQLite"],
+    "link": "https://keyboard-project-2023.vercel.app/"
+  }
+  
 ]
