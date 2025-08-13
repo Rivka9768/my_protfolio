@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Home · My Portfolio{% endblock %}
+
+{% block hero %}
+<section class="hero-gradient text-white">
+  <div class="container py-5">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-7">
+        <h1 class="display-5 fw-bold mb-3">Hi, I’m Your Name</h1>
+        <p class="lead mb-4">
+          Software Engineering student. I build clean, practical projects and love learning systems & backend.
+        </p>
+        <div class="d-flex gap-3">
+          <a class="btn btn-light btn-lg" href="{{ url_for('projects_page') }}">View Projects</a>
+          <a class="btn btn-outline-light btn-lg" href="{{ url_for('academics') }}">My Academics</a>
+        </div>
+      </div>
+      <div class="col-lg-5 text-center">
+        <!-- Optional: put a profile image in /static and link here -->
+        <!-- <img src="{{ url_for('static', filename='images/me.jpg') }}" class="img-fluid rounded-4 shadow" alt="Profile"> -->
+        <div class="rounded-4 shadow p-5 bg-white text-dark">
+          <div class="fw-bold mb-2">Quick Links</div>
+          <ul class="list-unstyled mb-0">
+            <li>• <a href="{{ url_for('projects_page') }}">Projects</a></li>
+            <li>• <a href="{{ url_for('academics') }}">Academics</a></li>
+            <li>• <a href="{{ url_for('contact') }}">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block content %}
+<section class="py-4">
+  <h2 class="h4 mb-3">About</h2>
+  <p>
+    Short intro about you. Mention your interests, current focus, and what kinds of projects you deploy.
+  </p>
+</section>
+{% endblock %}

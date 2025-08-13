@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Projects · My Portfolio{% endblock %}
+
+{% block content %}
+<h1 class="h3 mb-4">Projects</h1>
+<div class="row g-4">
+  {% for project in projects %}
+  <div class="col-md-6 col-lg-4">
+    <div class="card card-hover h-100 shadow-sm">
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title">{{ project.title }}</h5>
+        <p class="card-text">{{ project.description }}</p>
+        <div class="mt-auto">
+          {% for tech in project.tech %}
+          <span class="badge bg-secondary me-1">{{ tech }}</span>
+          {% endfor %}
+          <a href="{{ project.link }}" target="_blank" class="btn btn-sm btn-primary mt-2">View</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<!-- Pagination -->
+<nav aria-label="Projects pagination" class="mt-4">
+  <ul class="pagination justify-content-center">
+    {% if page > 1 %}
+    <li class="page-item">
+      <a class="page-link" href="{{ url_for('projects_page', page=page-1) }}">Previous</a>
+    </li>
+    {% else %}
+    <li class="page-item disabled"><span class="page-link">Previous</span></li>
+    {% endif %}
+
+    {% for p in range(1, total_pages + 1) %}
+    <li class="page-item {% if p == page %}active{% endif %}">
+      <a class="page-link" href="{{ url_for('projects_page', page=p) }}">{{ p }}</a>
+    </li>
+    {% endfor %}
+
+    {% if page < total_pages %}
+    <li class="page-item">
+      <a class="page-link" href="{{ url_for('projects_page', page=page+1) }}">Next</a>
+    </li>
+    {% else %}
+    <li class="page-item disabled"><span class="page-link">Next</span></li>
+    {% endif %}
+  </ul>
+</nav>
+{% endblock %}

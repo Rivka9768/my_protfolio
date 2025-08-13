@@ -1,0 +1,20 @@
+:root {
+  --brand-start: #2b6cb0; /* tweak these two for your palette */
+  --brand-end:   #805ad5;
+}
+
+.hero-gradient {
+  background: linear-gradient(135deg, var(--brand-start), var(--brand-end));
+}
+
+a { text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Optional: nicer footer tone */
+footer { background-color: #fafafa; }
+
+/* Optional: card polish we'll use in Step 2 */
+.card-hover:hover {
+  transform: translateY(-2px);
+  transition: transform 120ms ease;
+}
