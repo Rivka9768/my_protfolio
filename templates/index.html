@@ -8,23 +8,28 @@
       <div class="col-lg-7">
         <h1 class="display-5 fw-bold mb-3">Hi, I’m Rivka</h1>
         <p class="lead mb-4">
-          Software Engineering student. I build clean, practical projects and love learning systems & backend.
+            Software Engineering student passionate about embedded systems, low-level programming (C/C++), Linux environments, and cybersecurity. I enjoy building efficient, reliable software and exploring complex systems.
         </p>
-        <div class="d-flex gap-3">
-          <a class="btn btn-light btn-lg" href="{{ url_for('projects_page') }}">View Projects</a>
-          <a class="btn btn-outline-light btn-lg" href="{{ url_for('academics_page') }}">My Academics</a>
-        </div>
+          <div class="d-flex gap-3">
+            <a class="btn btn-light btn-lg" href="{{ url_for('projects_page') }}">View Projects</a>
+            <a class="btn btn-outline-light btn-lg" href="{{ url_for('academics_page') }}">My Academics</a>
+            <a class="btn btn-outline-light btn-lg" href="{{ url_for('static', filename='docs/my_cv.pdf') }}" download>Download CV</a>
+          </div>
+
       </div>
       <div class="col-lg-5 text-center">
         <!-- Optional: put a profile image in /static and link here -->
         <!-- <img src="{{ url_for('static', filename='images/me.jpg') }}" class="img-fluid rounded-4 shadow" alt="Profile"> -->
         <div class="rounded-4 shadow p-5 bg-white text-dark">
           <div class="fw-bold mb-2">Quick Links</div>
+
           <ul class="list-unstyled mb-0">
             <li>• <a href="{{ url_for('projects_page') }}">Projects</a></li>
             <li>• <a href="{{ url_for('academics_page') }}">Academics</a></li>
             <li>• <a href="{{ url_for('contact') }}">Contact</a></li>
+            <li>• <a href="{{ url_for('static', filename='docs/my_cv.pdf') }}" target="_blank">View CV</a></li>
           </ul>
+
         </div>
       </div>
     </div>
@@ -34,9 +39,13 @@
 
 {% block content %}
 <section class="py-4">
-  <h2 class="h4 mb-3">About</h2>
+  <h2 class="h4 mb-3">About Me</h2>
   <p>
-    Short intro about you. Mention your interests, current focus, and what kinds of projects you deploy.
+    I am a high-achieving Computer Science student at Jerusalem College of Technology, with a strong academic record and a deep passion for software engineering, particularly in embedded systems, Linux environments, low-level programming (C, C++), and cybersecurity.
+
+Currently working as a Junior Developer and Support Engineer at Total Testing INC., I collaborate with senior developers to design and implement integrations while resolving complex software issues, streamlining processes, and improving system performance.
+
+I am proactive, goal-oriented, and thrive in collaborative environments, bringing strong analytical and problem-solving skills to every project. My technical expertise spans multiple programming languages, operating systems, and database systems, and I am dedicated to building secure, efficient, and reliable software solutions.
   </p>
 </section>
 {% endblock %}

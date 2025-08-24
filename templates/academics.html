@@ -9,20 +9,28 @@
   <div class="timeline-item">
     <div class="timeline-marker"></div>
     <div class="timeline-content">
-      <h5>B.Sc. Computer Science – Bar-Ilan University</h5>
+      <h5>B.Sc. Computer Science – Jerusalem College og Technology</h5>
       <span class="text-muted">2022 – Present</span>
       <p>Focused on software engineering, databases, algorithms, and AI.</p>
     </div>
   </div>
 
-  <div class="timeline-item">
+<div class="timeline-item">
     <div class="timeline-marker"></div>
     <div class="timeline-content">
-      <h5>Smartrack Program – Academic Seminars</h5>
-      <span class="text-muted">2023 – 2025</span>
-      <p>Participated in advanced research seminars alongside core courses.</p>
+        <h5>MAHAT – Certified Practical Engineer Training</h5>
+        <span class="text-muted">2022 – 2025</span>
+        <p>Engaged in a government-sponsored program offering practical engineering education and hands-on industry experience, culminating in a nationally recognized diploma.</p>
+        <!-- תצוגת הדיפלומה -->
+        <embed src="{{ url_for('static', filename='diplomas/mahat_diploma.pdf') }}" type="application/pdf" width="600" height="400">
+        <br>
+        <!-- כפתור להורדה -->
+        <a href="{{ url_for('download_diploma') }}" download>
+            <button class="btn btn-primary mt-2">Download Diploma</button>
+        </a>
     </div>
-  </div>
+</div>
+
 </div>
 
 <hr class="my-5">

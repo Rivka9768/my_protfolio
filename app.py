@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request,send_from_directory
 import json
 from pathlib import Path
 import os
@@ -33,6 +33,10 @@ def projects_page():
         total_pages=total_pages
     )
 
+@app.route('/download_diploma')
+def download_diploma():
+    diploma_folder = os.path.join(app.root_path, 'static', 'diplomas')
+    return send_from_directory(diploma_folder, 'mahat_diploma.pdf', as_attachment=True)
 
 
 @app.route("/academics")
