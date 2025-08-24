@@ -14,7 +14,14 @@
           {% for tech in project.tech %}
           <span class="badge bg-secondary me-1">{{ tech }}</span>
           {% endfor %}
-          <a href="{{ project.link }}" target="_blank" class="btn btn-sm btn-primary mt-2">View</a>
+          <div class="mt-3">
+            {% if project.live %}
+            <a href="{{ project.live }}" target="_blank" class="btn btn-sm btn-success me-2">Live Site</a>
+            {% endif %}
+            {% if project.github %}
+            <a href="{{ project.github }}" target="_blank" class="btn btn-sm btn-dark">GitHub</a>
+            {% endif %}
+          </div>
         </div>
       </div>
     </div>

@@ -1,28 +1,45 @@
 [
+{
+  "title": "Fake Server",
+  "description": "A simple project built with pure JavaScript that imitates a server by handling fake XMLHttpRequests. Useful for simulating API calls and testing client-side logic without a real backend. Deployed on Vercel.",
+  "tech": ["JavaScript", "HTML", "CSS", "Vercel"],
+  "github": "https://github.com/Rivka9768/fakeServer",
+  "live": "https://fake-server-nu.vercel.app/"
+}
+  ,
+{
+  "title": "Portfolio Website",
+  "description": "My personal website showcasing projects and skills.",
+  "tech": ["Flask", "Bootstrap", "HTML", "CSS"],
+  "github": "https://github.com/Rivka9768/my_protfolio",
+  "live": "https://rivkasorscher.com/"
+}
+  ,
   {
-    "title": "Calculator App",
-    "description": "A simple calculator using Python and Tkinter.",
-    "tech": ["Python", "Tkinter"],
-    "link": "https://fake-server-nu.vercel.app/"
-  },
-  {
-    "title": "Portfolio Website",
-    "description": "My personal website showcasing projects and skills.",
-    "tech": ["Flask", "Bootstrap", "HTML", "CSS"],
-    "link": "https://reversi-drab.vercel.app/"
-  },
-  {
-    "title": "Blog Engine",
-    "description": "A small blog engine using Flask and SQLite.",
-    "tech": ["Python", "Flask", "SQLite"],
-    "link": "https://get-to100-game-2023.vercel.app/"
-  }
-    ,
-  {
-    "title": "Blog Engine",
-    "description": "A small blog engine using Flask and SQLite.",
-    "tech": ["Python", "Flask", "SQLite"],
-    "link": "https://keyboard-project-2023.vercel.app/"
-  }
+  "title": "Reversi Game",
+  "description": "A browser-based implementation of the classic Reversi (Othello) board game, developed using pure JavaScript, HTML, and CSS. Players take turns placing discs, flipping opponent pieces, and competing to dominate the board. Deployed on Vercel.",
+  "tech": ["JavaScript", "HTML", "CSS", "Vercel"],
+  "github": "https://github.com/Rivka9768/Reversi",
+  "live": "https://reversi-drab.vercel.app/"
+},
+
+{
+  "title": "Get To 100 Game",
+  "description": "A simple and fun interactive number game where players try to reach exactly 100. Built with React and deployed on Vercel.",
+  "tech": ["JavaScript", "React", "Vercel"],
+  "github": "https://github.com/Rivka9768/getTo100Game-2023",
+  "live": "https://get-to100-game-2023.vercel.app/"
+}
+
+
+  ,
+{
+  "title": "Virtual Keyboard Project",
+  "description": "An interactive on-screen keyboard built with React, allowing users to type and test key presses directly in the browser. Designed as a fun and practical tool for learning and practicing keyboard input, deployed on Vercel.",
+  "tech": ["JavaScript", "React", "Vercel"],
+  "github": "https://github.com/Rivka9768/keyboardProject-2023",
+  "live": "https://keyboard-project-2023.vercel.app/"
+}
+
   
 ]
