@@ -32,7 +32,7 @@
             <a class="nav-link {% if request.path.startswith('/projects') %}active{% endif %}" href="{{ url_for('projects_page') }}">Projects</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {% if request.path.startswith('/academics') %}active{% endif %}" href="{{ url_for('academics') }}">Academics</a>
+            <a class="nav-link {% if request.path.startswith('/academics') %}active{% endif %}" href="{{ url_for('academics_page') }}">Academics</a>
           </li>
           <li class="nav-item">
             <a class="nav-link {% if request.path.startswith('/contact') %}active{% endif %}" href="{{ url_for('contact') }}">Contact</a>

@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 import json
 from pathlib import Path
 import os
+import pandas as pd
 
 app = Flask(__name__)
 
@@ -21,7 +22,7 @@ def home():
 def projects_page():
     # optionally support page query param
     page = int(request.args.get("page", 1))
-    per_page = 6
+    per_page = 2
     start = (page - 1) * per_page
     end = start + per_page
     total_pages = (len(PROJECTS) + per_page - 1) // per_page
@@ -33,9 +34,13 @@ def projects_page():
     )
 
 
+
 @app.route("/academics")
-def academics():
-    return render_template("academics.html")
+def academics_page():
+    df = pd.read_excel("Academics.xlsx")  # headers: Course, Grade, Credits
+    grades = df.to_dict(orient="records")
+    return render_template("academics.html", grades=grades)
+
 
 @app.route("/contact")
 def contact():
