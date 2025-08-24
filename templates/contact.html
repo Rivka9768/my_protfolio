@@ -1,10 +1,32 @@
 {% extends "base.html" %}
 {% block title %}Contact · My Portfolio{% endblock %}
+
 {% block content %}
-<h1 class="h3 mb-4">Contact</h1>
-<ul class="list-unstyled">
-  <li><strong>Email:</strong> your@email.com</li>
-  <li><strong>GitHub:</strong> <a href="https://github.com/yourhandle" target="_blank">github.com/yourhandle</a></li>
-  <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/yourhandle" target="_blank">linkedin.com/in/yourhandle</a></li>
+<h1 class="h3 mb-4">Get in Touch</h1>
+
+<p>If you’d like to reach out for collaboration, questions, or professional inquiries, you can contact me via email, phone, or the form below.</p>
+
+<ul class="list-unstyled mb-4">
+  <li><strong>Email:</strong> <a href="mailto:rsorscher1@gmail.com">rsorscher1@gmail.com</a></li>
+  <li><strong>Phone:</strong> +972-53-315-9768</li>
+  <li><strong>GitHub:</strong> <a href="https://github.com/Rivka9768" target="_blank">github.com/rivka9768</a></li>
+  <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/rivkasorscher" target="_blank">linkedin.com/in/rivkasorscher</a></li>
 </ul>
+
+<h2 class="h4 mb-3">Contact Form</h2>
+<form method="POST" action="{{ url_for('submit_contact') }}">
+  <div class="mb-3">
+    <label for="name" class="form-label">Name</label>
+    <input type="text" class="form-control" id="name" name="name" required>
+  </div>
+  <div class="mb-3">
+    <label for="email" class="form-label">Email</label>
+    <input type="email" class="form-control" id="email" name="email" required>
+  </div>
+  <div class="mb-3">
+    <label for="message" class="form-label">Message</label>
+    <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">Send Message</button>
+</form>
 {% endblock %}
