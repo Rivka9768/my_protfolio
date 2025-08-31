@@ -10,6 +10,10 @@ app = Flask(__name__)
 app.secret_key = "your_secret_key_here"
 
 
+EMAIL_ADDRESS = os.environ.get("EMAIL_ADDRESS")
+EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD")
+
+
 
 # We'll really use this in Step 2 (projects page). For now it's safe to keep.
 PROJECTS_FILE = Path("projects.json")
@@ -27,7 +31,7 @@ def home():
 def projects_page():
     # optionally support page query param
     page = int(request.args.get("page", 1))
-    per_page = 2
+    per_page = 3
     start = (page - 1) * per_page
     end = start + per_page
     total_pages = (len(PROJECTS) + per_page - 1) // per_page
@@ -66,10 +70,11 @@ def submit_contact():
     try:
         with smtplib.SMTP("smtp.gmail.com", 587) as server:
             server.starttls()
-            server.login("your_email@gmail.com", "your_email_app_password")
+
+            server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
             server.sendmail(
-                "your_email@gmail.com",
-                "your_email@gmail.com",  # send to yourself
+                EMAIL_ADDRESS,
+                EMAIL_ADDRESS, # send to yourself
                 f"Subject: Portfolio Contact Form\n\nName: {name}\nEmail: {email}\n\nMessage:\n{message}"
             )
         flash("Your message has been sent successfully!", "success")
