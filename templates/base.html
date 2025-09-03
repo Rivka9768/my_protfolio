@@ -15,6 +15,9 @@
   <!-- Your overrides -->
   <link rel="stylesheet" href="{{ url_for('static', filename='site.css') }}">
   {% block head_extra %}{% endblock %}
+
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.png') }}">
+
 </head>
 <body>
   <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom">
