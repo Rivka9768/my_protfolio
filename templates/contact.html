@@ -2,6 +2,15 @@
 {% block title %}Contact · My Portfolio{% endblock %}
 
 {% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }} mb-4" role="alert">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
 <h1 class="h3 mb-4">Get in Touch</h1>
 
 <p>If you’d like to reach out for collaboration, questions, or professional inquiries, you can contact me via email, phone, or the form below.</p>
@@ -26,7 +35,7 @@
     <div class="form-group">
         {{ form.message.label }} {{ form.message(class="form-control") }}
     </div>
-
+    <br>
     <div class="form-group">
         {{ form.recaptcha }}
     </div>
