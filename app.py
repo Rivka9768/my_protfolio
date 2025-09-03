@@ -4,14 +4,19 @@ import json
 from pathlib import Path
 import os
 import pandas as pd
+from forms import ContactForm
+
 
 
 app = Flask(__name__)
-app.secret_key = "your_secret_key_here"
 
 
 EMAIL_ADDRESS = os.environ.get("EMAIL_ADDRESS")
 EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD")
+app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "dev-secret-key")
+app.config["RECAPTCHA_PUBLIC_KEY"] = os.getenv("RECAPTCHA_PUBLIC_KEY")
+app.config["RECAPTCHA_PRIVATE_KEY"] = os.getenv("RECAPTCHA_PRIVATE_KEY")
+
 
 
 
@@ -56,32 +61,34 @@ def academics_page():
 
 
 
-@app.route("/contact")
+from flask import render_template, request, redirect, url_for, flash
+import smtplib
+
+@app.route("/contact", methods=["GET", "POST"])
 def contact():
-    return render_template("contact.html")
+    form = ContactForm()
+    if form.validate_on_submit():  # ✅ This checks reCAPTCHA automatically
+        name = form.name.data
+        email = form.email.data
+        message = form.message.data
 
-@app.route("/submit_contact", methods=["POST"])
-def submit_contact():
-    name = request.form.get("name")
-    email = request.form.get("email")
-    message = request.form.get("message")
+        try:
+            with smtplib.SMTP("smtp.gmail.com", 587) as server:
+                server.starttls()
+                server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+                server.sendmail(
+                    EMAIL_ADDRESS,
+                    EMAIL_ADDRESS,
+                    f"Subject: Portfolio Contact Form\n\nName: {name}\nEmail: {email}\n\nMessage:\n{message}"
+                )
+            flash("Your message has been sent successfully!", "success")
+        except Exception as e:
+            flash(f"Error sending message: {e}", "danger")
 
-    # Example: send email using SMTP (configure with your email provider)
-    try:
-        with smtplib.SMTP("smtp.gmail.com", 587) as server:
-            server.starttls()
+        return redirect(url_for("contact"))
 
-            server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
-            server.sendmail(
-                EMAIL_ADDRESS,
-                EMAIL_ADDRESS, # send to yourself
-                f"Subject: Portfolio Contact Form\n\nName: {name}\nEmail: {email}\n\nMessage:\n{message}"
-            )
-        flash("Your message has been sent successfully!", "success")
-    except Exception as e:
-        flash(f"Error sending message: {e}", "danger")
+    return render_template("contact.html", form=form)
 
-    return redirect(url_for("contact"))
 
 
 if __name__ == "__main__":
