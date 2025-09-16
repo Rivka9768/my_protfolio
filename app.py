@@ -50,7 +50,7 @@ def projects_page():
 @app.route('/download_diploma')
 def download_diploma():
     diploma_folder = os.path.join(app.root_path, 'static', 'diplomas')
-    return send_from_directory(diploma_folder, 'mahat_diploma.pdf', as_attachment=True)
+    return send_from_directory(diploma_folder, 'Rivka Sorscher mahat diploma.pdf', as_attachment=True)
 
 
 @app.route("/academics")
