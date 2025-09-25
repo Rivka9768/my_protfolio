@@ -64,30 +64,37 @@ def academics_page():
 from flask import render_template, request, redirect, url_for, flash
 import smtplib
 
+import smtplib
+import socket
+
 @app.route("/contact", methods=["GET", "POST"])
 def contact():
     form = ContactForm()
-    if form.validate_on_submit():  # ✅ This checks reCAPTCHA automatically
+    if form.validate_on_submit():
         name = form.name.data
         email = form.email.data
         message = form.message.data
 
         try:
-            with smtplib.SMTP("smtp.gmail.com", 587) as server:
+            # חיבור עם timeout כדי למנוע תקיעה
+            with smtplib.SMTP("smtp.gmail.com", 587, timeout=10) as server:
                 server.starttls()
                 server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
                 server.sendmail(
                     EMAIL_ADDRESS,
                     EMAIL_ADDRESS,
-                    f"Subject: Portfolio Contact Form\n\nName: {name}\nEmail: {email}\n\nMessage:\n{message}"
+                    f"Subject: Portfolio Contact Form\n\n"
+                    f"Name: {name}\nEmail: {email}\n\nMessage:\n{message}"
                 )
             flash("Your message has been sent successfully!", "success")
-        except Exception as e:
+
+        except (smtplib.SMTPException, socket.timeout) as e:
             flash(f"Error sending message: {e}", "danger")
 
         return redirect(url_for("contact"))
 
     return render_template("contact.html", form=form)
+
 
 
 
