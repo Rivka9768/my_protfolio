@@ -8,6 +8,7 @@ import os
 import pandas as pd
 from forms import ContactForm
 from dotenv import load_dotenv
+import traceback
 
 load_dotenv()
 
@@ -86,7 +87,10 @@ def contact():
         except smtplib.SMTPException as e:
             flash(f"SMTP error: {e}", "danger")
         except Exception as e:
+            print(traceback.format_exc())
             flash(f"Error sending message: {e}", "danger")
+        # except Exception as e:
+        #     flash(f"Error sending message: {e}", "danger")
 
         return redirect(url_for("contact"))
 
