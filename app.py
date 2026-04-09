@@ -1,15 +1,17 @@
-from flask import Flask, render_template, request,send_from_directory ,redirect, flash, url_for
+from flask import Flask, render_template, request, send_from_directory, redirect, flash, url_for
 import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 import json
 from pathlib import Path
 import os
 import pandas as pd
 from forms import ContactForm
+from dotenv import load_dotenv
 
-
+load_dotenv()
 
 app = Flask(__name__)
-
 
 EMAIL_ADDRESS = os.environ.get("EMAIL_ADDRESS")
 EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD")
@@ -18,9 +20,6 @@ app.config["RECAPTCHA_PUBLIC_KEY"] = os.getenv("RECAPTCHA_PUBLIC_KEY")
 app.config["RECAPTCHA_PRIVATE_KEY"] = os.getenv("RECAPTCHA_PRIVATE_KEY")
 
 
-
-
-# We'll really use this in Step 2 (projects page). For now it's safe to keep.
 PROJECTS_FILE = Path("projects.json")
 if PROJECTS_FILE.exists():
     with open(PROJECTS_FILE, "r", encoding="utf-8") as f:
@@ -28,13 +27,14 @@ if PROJECTS_FILE.exists():
 else:
     PROJECTS = []
 
+
 @app.route("/")
 def home():
     return render_template("index.html")
 
+
 @app.route("/projects")
 def projects_page():
-    # optionally support page query param
     page = int(request.args.get("page", 1))
     per_page = 3
     start = (page - 1) * per_page
@@ -47,6 +47,7 @@ def projects_page():
         total_pages=total_pages
     )
 
+
 @app.route('/download_diploma')
 def download_diploma():
     diploma_folder = os.path.join(app.root_path, 'static', 'diplomas')
@@ -55,17 +56,10 @@ def download_diploma():
 
 @app.route("/academics")
 def academics_page():
-    df = pd.read_excel("Academics.xlsx")  # headers: Course, Grade, Credits
+    df = pd.read_excel("Academics.xlsx")
     grades = df.to_dict(orient="records")
     return render_template("academics.html", grades=grades)
 
-
-
-from flask import render_template, request, redirect, url_for, flash
-import smtplib
-
-import smtplib
-import socket
 
 @app.route("/contact", methods=["GET", "POST"])
 def contact():
@@ -74,31 +68,38 @@ def contact():
         name = form.name.data
         email = form.email.data
         message = form.message.data
-
         try:
-            # חיבור עם timeout כדי למנוע תקיעה
+            # Build a proper MIME message to support Hebrew and UTF-8
+            msg = MIMEMultipart()
+            msg["Subject"] = "Portfolio Contact Form"
+            msg["From"] = EMAIL_ADDRESS
+            msg["To"] = EMAIL_ADDRESS
+            body = f"Name: {name}\nEmail: {email}\n\nMessage:\n{message}"
+            msg.attach(MIMEText(body, "plain", "utf-8"))
+
             with smtplib.SMTP("smtp.gmail.com", 587, timeout=10) as server:
                 server.starttls()
                 server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
-                server.sendmail(
-                    EMAIL_ADDRESS,
-                    EMAIL_ADDRESS,
-                    f"Subject: Portfolio Contact Form\n\n"
-                    f"Name: {name}\nEmail: {email}\n\nMessage:\n{message}"
-                )
-            flash("Your message has been sent successfully!", "success")
+                server.send_message(msg)
 
-        except (smtplib.SMTPException, socket.timeout) as e:
-            flash(f"Error sending message: {e}", "danger")
+            flash("ההודעה נשלחה בהצלחה!", "success")
+        except smtplib.SMTPAuthenticationError:
+            flash("שגיאת אימות — בדקי שה-App Password נכון.", "danger")
+        except smtplib.SMTPException as e:
+            flash(f"שגיאת SMTP: {e}", "danger")
+        except Exception as e:
+            flash(f"שגיאה בשליחת הודעה: {e}", "danger")
 
         return redirect(url_for("contact"))
+
+    # Show validation errors after a failed POST
+    if request.method == "POST" and form.errors:
+        for field, errors in form.errors.items():
+            for error in errors:
+                flash(f"שגיאה בשדה {field}: {error}", "warning")
 
     return render_template("contact.html", form=form)
 
 
-
-
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
-
-
