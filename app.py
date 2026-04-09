@@ -76,19 +76,17 @@ def contact():
             msg["To"] = EMAIL_ADDRESS
             body = f"Name: {name}\nEmail: {email}\n\nMessage:\n{message}"
             msg.attach(MIMEText(body, "plain", "utf-8"))
-
-            with smtplib.SMTP("smtp.gmail.com", 587, timeout=10) as server:
-                server.starttls()
+            with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=10) as server:
                 server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
                 server.send_message(msg)
 
-            flash("ההודעה נשלחה בהצלחה!", "success")
+            flash("Your message was sent! I appreciate you contacting me.", "success")
         except smtplib.SMTPAuthenticationError:
-            flash("שגיאת אימות — בדקי שה-App Password נכון.", "danger")
+            flash("Authentication error — please check your App Password.", "danger")
         except smtplib.SMTPException as e:
-            flash(f"שגיאת SMTP: {e}", "danger")
+            flash(f"SMTP error: {e}", "danger")
         except Exception as e:
-            flash(f"שגיאה בשליחת הודעה: {e}", "danger")
+            flash(f"Error sending message: {e}", "danger")
 
         return redirect(url_for("contact"))
 
@@ -96,7 +94,7 @@ def contact():
     if request.method == "POST" and form.errors:
         for field, errors in form.errors.items():
             for error in errors:
-                flash(f"שגיאה בשדה {field}: {error}", "warning")
+                flash(f"Error in field {field}: {error}", "warning")
 
     return render_template("contact.html", form=form)
 
